@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export const createModal = <T = any, CustomPayload = any>(init?: T) => {
+export const createModal = <T = any, CustomPayload = any>(
+  init?: T | (() => T)
+) => {
   let oldData: T = null;
-  let data = init;
+  // @ts-ignore
+  let data = typeof init === "function" ? init() : init;
   let updateTime: number = new Date().getTime();
   type ListenerFn = (val: T, oldVal: T, payload?: CustomPayload) => void;
   type CalcDataFn = (nowVal: T) => T;
@@ -38,7 +41,15 @@ export const createModal = <T = any, CustomPayload = any>(init?: T) => {
     });
   };
 
-  const useUpdateTime = () => {
+  const useModal = (): [T, Dispatch<SetStateAction<T>>] => {
+    const [value, setValue] = useState<T>(data);
+    useEffect(() => {
+      return subscribe((newValue) => setValue(newValue));
+    }, []);
+    return [value, dispatch];
+  };
+
+  const useUpdateTime = (): [number, Dispatch<SetStateAction<T>>] => {
     const [value, setValue] = useState<number>(updateTime);
     useEffect(() => {
       return subscribe(() => setValue(updateTime));
@@ -46,29 +57,12 @@ export const createModal = <T = any, CustomPayload = any>(init?: T) => {
     return [value, dispatch];
   };
 
-  type Modal = {
-    useModal: () => [T, (val: T) => void];
-    getData: () => T;
-    subscribe: typeof subscribe;
-    dispatch: typeof dispatch;
-    useUpdateTime: typeof useUpdateTime;
-  };
-
-  const modal: Modal = {
-    useModal: () => {
-      const [value, setValue] = useState<T>(data);
-      useEffect(() => {
-        return subscribe((newValue) => setValue(newValue));
-      }, []);
-      return [value, dispatch];
-    },
-    getData: () => {
-      return data;
-    },
+  return {
+    useModal,
+    getData: () => data,
     subscribe,
     dispatch,
     useUpdateTime,
+    getUpdateTime: () => updateTime
   };
-
-  return modal;
 };
