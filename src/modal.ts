@@ -7,7 +7,10 @@ export const createModal = <T = any, CustomPayload = any>(
   // @ts-ignore
   let data = typeof init === "function" ? init() : init;
   let updateTime: number = new Date().getTime();
-  type ListenerFn = (val: T, oldVal: T, payload?: CustomPayload) => void;
+  type ListenerFn = (
+    val: T,
+    options: { lastState: T; payload?: CustomPayload }
+  ) => void;
   type CalcDataFn = (nowVal: T) => T;
   let listeners: Array<ListenerFn> = [];
   const subscribe = (
@@ -17,7 +20,7 @@ export const createModal = <T = any, CustomPayload = any>(
     }
   ) => {
     const callAfterSubscibe = !!options?.callAfterSubscibe;
-    callAfterSubscibe && listenerFn(data, oldData);
+    callAfterSubscibe && listenerFn(data, { lastState: oldData });
     listeners.push(listenerFn);
     return () => {
       listeners = listeners.filter((fn) => fn !== listenerFn);
@@ -37,7 +40,12 @@ export const createModal = <T = any, CustomPayload = any>(
     data = typeof param === "function" ? param(data) : param;
     timer && clearTimeout(timer);
     timer = setTimeout(() => {
-      listeners.forEach((fn) => fn(data, oldData, options?.payload));
+      listeners.forEach((fn) =>
+        fn(data, {
+          lastState: oldData,
+          payload: options?.payload,
+        })
+      );
     });
   };
 
@@ -63,6 +71,6 @@ export const createModal = <T = any, CustomPayload = any>(
     subscribe,
     dispatch,
     useUpdateTime,
-    getUpdateTime: () => updateTime
+    getUpdateTime: () => updateTime,
   };
 };
