@@ -1,0 +1,41 @@
+{
+  "name": "qian-mo",
+  "version": "1.0.0",
+  "description": "基于发布订阅的简单通讯工具",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && tsc-alias -p tsconfig.json",
+    "release": "npx standard-version && npm run build && npm publish",
+    "commit": "git-cz"
+  },
+  "dependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "git-cz": "^4.7.6",
+    "husky": "^7.0.1",
+    "jest": "^27.1.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.2",
+    "tsc-alias": "^1.3.7",
+    "typescript": "^4.3.5"
+  },
+  "files": [
+    "dist"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js,jsx,ts,tsx,json}": [
+        "prettier --write",
+        "git add"
+      ]
+    }
+  },
+  "author": "詹前广",
+  "license": "MIT"
+}
