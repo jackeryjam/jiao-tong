@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/jackeryjam/jiao-tong/compare/v1.3.1...v1.3.2) (2021-11-01)
+
+
+### Bug Fixes
+
+* 🐛 改名字 ([aa8c80d](https://github.com/jackeryjam/jiao-tong/commit/aa8c80d8f0bde368c935973daf71c92f1ed01289))
+
 ### [1.3.1](https://github.com/jackeryjam/jiao-tong/compare/v1.3.0...v1.3.1) (2021-10-30)
 
 
