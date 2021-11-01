@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export const createModal = <T = any, CustomPayload = any>(
+export const createModel = <T = any, CustomPayload = any>(
   init?: T | (() => T)
 ) => {
   let oldData: T = null;
@@ -49,7 +49,7 @@ export const createModal = <T = any, CustomPayload = any>(
     });
   };
 
-  const useModal = (): [T, Dispatch<SetStateAction<T>>] => {
+  const useModel = (): [T, Dispatch<SetStateAction<T>>] => {
     const [value, setValue] = useState<T>(data);
     useEffect(() => {
       return subscribe((newValue) => setValue(newValue));
@@ -66,7 +66,7 @@ export const createModal = <T = any, CustomPayload = any>(
   };
 
   return {
-    useModal,
+    useModel,
     getData: () => data,
     subscribe,
     dispatch,
