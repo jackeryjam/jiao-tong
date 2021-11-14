@@ -5,7 +5,7 @@ export const createModel = <T = any, CustomPayload = any>(
 ) => {
   let oldData: T = null;
   // @ts-ignore
-  let data = typeof init === "function" ? init() : init;
+  let data: T = typeof init === "function" ? init() : init;
   let updateTime: number = new Date().getTime();
   type ListenerFn = (
     val: T,
