@@ -29,6 +29,7 @@ export const createEvent = <EventName extends string, EventData = void>() => {
       }, deps);
     },
     dispatchEvent: dispatch,
+    subscribeEvent: subscribe,
   };
 };
 
