@@ -33,4 +33,22 @@ export const createEvent = <EventName extends string, EventData = void>() => {
   };
 };
 
+export const createSimpleEvent = <EventData = void>() => {
+  type ListenerFn = (val: EventData) => void;
+  const {
+    useSubscribe: useSimpleSubscribe,
+    dispatchEvent: dispatchSimpleEvent,
+    subscribeEvent: subscribeSimpleEvent,
+  } = createEvent<"simple", EventData>();
+
+  return {
+    useSubscribe: (fn: (e: EventData) => void, deps: DependencyList) => {
+      useSimpleSubscribe("simple", fn, deps);
+    },
+    dispatchEvent: (data: EventData) => dispatchSimpleEvent("simple", data),
+    subscribeEvent: (listener: ListenerFn) =>
+      subscribeSimpleEvent("simple", listener),
+  };
+};
+
 export default createEvent;
