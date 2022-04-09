@@ -1,6 +1,6 @@
 {
   "name": "jiao-tong",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "基于发布订阅的简单通讯工具",
   "main": "dist/index.js",
   "scripts": {
@@ -39,7 +39,5 @@
   },
   "author": "詹前广",
   "license": "MIT",
-  "dependencies": {
-    "lodash": "^4.17.21"
-  }
+  "dependencies": {}
 }
