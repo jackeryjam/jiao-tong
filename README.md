@@ -17,7 +17,7 @@ export const { useModel: useCountModel, getData: getCountModel, dispatch: dispat
 
 ```
 使用模型共享数据，其hook方法和useState基本一模一样，前面是模型的值，后面是该模型对应的修改值的方法，让你无成本爱上这个
-```ts
+```tsx
 import { useCountModel } from 'src/model'
 
 const AddCountBtn: FC = () => {
@@ -30,7 +30,7 @@ const AddCountBtn: FC = () => {
 }
 ```
 在组件内之中改变countModel的值，其他组件能够直接读到
-```ts
+```tsx
 function App() {
   const [count] = useCountModel()
   return (
