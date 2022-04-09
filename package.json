@@ -1,6 +1,6 @@
 {
   "name": "jiao-tong",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "基于发布订阅的简单通讯工具",
   "main": "dist/index.js",
   "scripts": {
